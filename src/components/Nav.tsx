@@ -21,9 +21,6 @@ export default function Nav() {
       />
       <header className="fixed top-0 left-0 right-0 z-40 px-6 py-4 flex items-center justify-between backdrop-blur-xl border-b border-border bg-bg-primary/70 shadow-lg shadow-black/20">
         <Link to="/" className="text-3xl font-bold font-heading tracking-tight flex items-center gap-2 drop-shadow-[0_0_15px_rgba(157,78,221,0.3)]">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-accent-blue to-accent-purple flex items-center justify-center shadow-[0_0_15px_rgba(157,78,221,0.5)]">
-            <span className="text-white text-lg font-black font-sans leading-none">D</span>
-          </div>
           <div>
             <span className="bg-gradient-to-r from-accent-blue via-accent-purple to-accent-teal bg-clip-text text-transparent">
               Dargans

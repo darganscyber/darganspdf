@@ -23,7 +23,6 @@ export default function Footer() {
           <h4 className="font-heading font-semibold mb-4">Product</h4>
           <ul className="space-y-2 text-sm text-text-muted">
             <li><Link to="/#tools" className="hover:text-accent-blue transition-colors">All Tools</Link></li>
-            <li><a href="https://github.com/your-username/dargans-pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent-blue transition-colors">GitHub</a></li>
           </ul>
         </div>
         

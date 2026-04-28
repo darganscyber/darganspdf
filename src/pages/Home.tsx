@@ -43,14 +43,6 @@ export default function Home() {
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="relative z-10 max-w-4xl"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-10 rounded-full bg-accent-purple/10 border border-accent-purple/30 text-accent-teal text-sm font-semibold shadow-[0_0_20px_rgba(157,78,221,0.15)]">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-teal opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-teal"></span>
-            </span>
-            {t('home.badge')}
-          </div>
-
           <h1 className="text-5xl md:text-7xl lg:text-[100px] leading-[1.1] font-heading font-black tracking-tighter mb-6 text-white drop-shadow-2xl">
             {t('home.title1')} <br className="hidden md:block"/>
             <span className="bg-gradient-to-r from-accent-blue via-accent-purple to-accent-teal bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(157,78,221,0.4)]">
@@ -75,25 +67,6 @@ export default function Home() {
               </AnimatePresence>
             </div>
             pdf.
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <MagneticButton className="!bg-accent-purple/20 !text-white border border-accent-purple/50 shadow-[0_0_40px_-5px_rgba(157,78,221,0.5)] hover:!bg-accent-purple/40 hover:shadow-[0_0_50px_0px_rgba(157,78,221,0.7)] hover:-translate-y-1 transition-all duration-300">
-              {t('home.cta1')}
-            </MagneticButton>
-            <MagneticButton className="group flex items-center gap-3 border border-border/50 bg-bg-card/50 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-              <div className="w-8 h-8 rounded-full bg-accent-purple/20 flex items-center justify-center group-hover:bg-accent-purple/40 group-hover:shadow-[0_0_15px_rgba(157,78,221,0.5)] transition-all">
-                <Play fill="currentColor" className="w-3.5 h-3.5 text-accent-teal translate-x-[1px]" />
-              </div>
-              <span className="font-semibold text-text-primary group-hover:text-white">{t('home.cta2')}</span>
-            </MagneticButton>
-          </div>
-
-          <div className="mt-20 flex flex-wrap justify-center gap-x-10 gap-y-4 text-sm text-text-muted/60 font-mono">
-            <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-accent-teal shadow-[0_0_8px_rgba(199,125,255,0.8)]"></span> {t('home.stats.processed')}</span>
-            <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-accent-purple shadow-[0_0_8px_rgba(157,78,221,0.8)]"></span> {t('home.stats.rating')}</span>
-            <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-accent-blue shadow-[0_0_8px_rgba(123,44,191,0.8)]"></span> {t('home.stats.privacy')}</span>
-            <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.8)]"></span> {t('home.stats.security')}</span>
           </div>
         </motion.div>
       </section>
