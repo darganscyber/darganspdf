@@ -84,9 +84,9 @@ export function MergePdf() {
             key="success"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-xl p-12 bg-bg-card rounded-3xl border border-accent-blue/30 text-center flex flex-col items-center shadow-[0_0_40px_-15px_rgba(79,142,247,0.3)]"
+            className="w-full max-w-xl p-12 bg-bg-card rounded-3xl border border-amber-500/30 text-center flex flex-col items-center shadow-[0_0_40px_-15px_rgba(245,158,11,0.4)]"
           >
-            <div className="w-20 h-20 bg-accent-blue/20 rounded-full flex items-center justify-center mb-6">
+            <div className="w-20 h-20 bg-amber-500/20 rounded-full flex items-center justify-center mb-6">
               <CheckCircle2 className="w-10 h-10 text-accent-blue" />
             </div>
             <h2 className="text-3xl font-heading font-bold mb-4">Merge Complete!</h2>
@@ -153,7 +153,7 @@ export function MergePdf() {
                 disabled={files.length < 2 || isProcessing}
                 className={cn(
                   "flex items-center gap-2",
-                  files.length >= 2 ? "!bg-accent-blue text-white hover:!bg-accent-blue/90 border-transparent shadow-[0_0_30px_-5px_rgba(79,142,247,0.4)]" : "opacity-50 cursor-not-allowed"
+                  files.length >= 2 ? "!bg-amber-500 text-white hover:!bg-amber-500/90 border-transparent shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]" : "opacity-50 cursor-not-allowed"
                 )}
               >
                 {isProcessing ? (

@@ -13,7 +13,9 @@ import { pdfToWord } from '@/lib/pdf/pdfToWord';
 import { pdfToJpg } from '@/lib/pdf/pdfToJpg';
 import { 
   removePages, extractPages, flattenPdf, addPageNumbers, 
-  repairPdf, reversePdf, pdfToPng, extractText 
+  repairPdf, reversePdf, pdfToPng, extractText,
+  wordToPdf, pngToPdf, pdfToExcel, excelToPdf, pdfToPpt, pptToPdf,
+  textToPdf, htmlToPdf, pdfToHtml, epubToPdf, pdfToEpub, csvToPdf
 } from '@/lib/pdf/additional';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -84,10 +86,18 @@ function GenericToolShell({
     a.href = url;
     
     let extension = 'pdf';
-    if (resultBlob.type === 'application/zip') extension = 'zip';
-    if (resultBlob.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') extension = 'docx';
+    const type = resultBlob.type;
+    if (type.includes('zip')) extension = 'zip';
+    else if (type.includes('wordprocessingml') || type.includes('msword')) extension = 'docx';
+    else if (type.includes('spreadsheetml') || type.includes('ms-excel')) extension = 'xlsx';
+    else if (type.includes('presentationml') || type.includes('ms-powerpoint')) extension = 'pptx';
+    else if (type.includes('html')) extension = 'html';
+    else if (type.includes('epub')) extension = 'epub';
+    else if (type.includes('csv')) extension = 'csv';
+    else if (type.includes('text/plain')) extension = 'txt';
+    else if (type.includes('image/png')) extension = 'png';
     
-    a.download = `darganspdf-${title.toLowerCase().replace(' ', '-')}-${Date.now()}.${extension}`;
+    a.download = `darganspdf-${title.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.${extension}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -183,58 +193,6 @@ function GenericToolShell({
   );
 }
 
-export function ProtectPdf() {
-  const [password, setPassword] = useState('');
-  return (
-    <GenericToolShell 
-      title="Protect PDF"
-      icon={Lock}
-      actionText="Encrypt PDF"
-      colorClass="bg-emerald-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(16,185,129,0.4)]"
-      onProcess={(files) => protectPdf(files[0], password)}
-      extraInputs={() => (
-        <div className="w-full max-w-sm">
-          <label className="block text-sm font-medium text-text-muted mb-2">Set Password</label>
-          <input 
-            type="password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password..."
-            className="w-full bg-bg-secondary border border-border focus:border-emerald-500 rounded-xl px-4 py-3 outline-none transition-colors"
-          />
-        </div>
-      )}
-    />
-  );
-}
-
-export function UnlockPdf() {
-  const [password, setPassword] = useState('');
-  return (
-    <GenericToolShell 
-      title="Unlock PDF"
-      icon={Unlock}
-      actionText="Unlock PDF"
-      colorClass="bg-cyan-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(6,182,212,0.4)]"
-      onProcess={(files) => unlockPdf(files[0], password)}
-      extraInputs={() => (
-        <div className="w-full max-w-sm">
-          <label className="block text-sm font-medium text-text-muted mb-2">Original Password</label>
-          <input 
-            type="password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter current password..."
-            className="w-full bg-bg-secondary border border-border focus:border-cyan-500 rounded-xl px-4 py-3 outline-none transition-colors"
-          />
-        </div>
-      )}
-    />
-  );
-}
-
 export function RotatePdf() {
   const [rotation, setRotation] = useState<number>(90);
   return (
@@ -242,14 +200,14 @@ export function RotatePdf() {
       title="Rotate PDF"
       icon={RotateCw}
       actionText={`Rotate ${rotation}°`}
-      colorClass="bg-blue-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(59,130,246,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => rotatePdf(files[0], rotation)}
       extraInputs={() => (
         <div className="w-full max-w-sm flex gap-4">
-          <button onClick={() => setRotation(90)} className={`flex-1 py-3 border rounded-xl font-medium transition-colors ${rotation === 90 ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-bg-secondary border-border text-text-muted'}`}>90° Right</button>
-          <button onClick={() => setRotation(-90)} className={`flex-1 py-3 border rounded-xl font-medium transition-colors ${rotation === -90 ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-bg-secondary border-border text-text-muted'}`}>90° Left</button>
-          <button onClick={() => setRotation(180)} className={`flex-1 py-3 border rounded-xl font-medium transition-colors ${rotation === 180 ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-bg-secondary border-border text-text-muted'}`}>180°</button>
+          <button onClick={() => setRotation(90)} className={`flex-1 py-3 border rounded-xl font-medium transition-colors ${rotation === 90 ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'bg-bg-secondary border-border text-text-muted'}`}>90° Right</button>
+          <button onClick={() => setRotation(-90)} className={`flex-1 py-3 border rounded-xl font-medium transition-colors ${rotation === -90 ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'bg-bg-secondary border-border text-text-muted'}`}>90° Left</button>
+          <button onClick={() => setRotation(180)} className={`flex-1 py-3 border rounded-xl font-medium transition-colors ${rotation === 180 ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'bg-bg-secondary border-border text-text-muted'}`}>180°</button>
         </div>
       )}
     />
@@ -262,8 +220,8 @@ export function CompressPdf() {
       title="Compress PDF"
       icon={Minimize2}
       actionText="Compress PDF"
-      colorClass="bg-emerald-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(16,185,129,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => compressPdf(files[0], 'medium')}
     />
   );
@@ -275,8 +233,8 @@ export function PdfToWord() {
       title="PDF to Word"
       icon={FileText}
       actionText="Convert to DOCX"
-      colorClass="bg-blue-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(59,130,246,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => pdfToWord(files[0])}
     />
   );
@@ -288,8 +246,8 @@ export function PdfToJpg() {
       title="PDF to JPG"
       icon={FileImage}
       actionText="Convert to JPG"
-      colorClass="bg-yellow-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(234,179,8,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => pdfToJpg(files[0])}
     />
   );
@@ -301,8 +259,8 @@ export function JpgToPdf() {
       title="JPG to PDF"
       icon={ImageIcon}
       actionText="Create PDF"
-      colorClass="bg-yellow-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(234,179,8,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       accept={{'image/*': ['.jpg', '.jpeg', '.png', '.webp']}}
       multiple={true}
       onProcess={(files) => jpgToPdf(files)}
@@ -317,8 +275,8 @@ export function WatermarkPdf() {
       title="Add Watermark"
       icon={Droplet}
       actionText="Apply Watermark"
-      colorClass="bg-accent-blue/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(123,44,191,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => addWatermark(files[0], { text })}
       extraInputs={() => (
         <div className="w-full max-w-sm">
@@ -342,8 +300,8 @@ export function SignPdf() {
       title="Sign PDF"
       icon={PenTool}
       actionText="Sign PDF"
-      colorClass="bg-accent-purple/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(157,78,221,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => signPdf(files[0], { signatureName })}
       extraInputs={() => (
         <div className="w-full max-w-sm">
@@ -369,8 +327,8 @@ export function MetadataEditorPdf() {
       title="Edit PDF Metadata"
       icon={Settings}
       actionText="Save Metadata"
-      colorClass="bg-orange-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => updateMetadata(files[0], { title, author })}
       extraInputs={() => (
         <div className="w-full max-w-sm space-y-4">
@@ -404,8 +362,8 @@ export function ExtractTextPdf() {
       title="Extract Text"
       icon={Type}
       actionText="Extract to TXT"
-      colorClass="bg-blue-600/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(37,99,235,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => extractText(files[0])}
     />
   );
@@ -418,8 +376,8 @@ export function RemovePagesPdf() {
       title="Remove Pages"
       icon={FileMinus}
       actionText="Remove Pages"
-      colorClass="bg-red-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(239,68,68,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => removePages(files[0], pages)}
       extraInputs={() => (
         <div className="w-full max-w-sm">
@@ -444,8 +402,8 @@ export function ExtractPagesPdf() {
       title="Extract Pages"
       icon={FileOutput}
       actionText="Extract Pages"
-      colorClass="bg-sky-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(14,165,233,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => extractPages(files[0], pages)}
       extraInputs={() => (
         <div className="w-full max-w-sm">
@@ -469,8 +427,8 @@ export function FlattenPdf() {
       title="Flatten PDF"
       icon={Layers}
       actionText="Flatten"
-      colorClass="bg-stone-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(120,113,108,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => flattenPdf(files[0])}
     />
   );
@@ -482,8 +440,8 @@ export function AddPageNumbersPdf() {
       title="Add Page Numbers"
       icon={Hash}
       actionText="Add Numbers"
-      colorClass="bg-violet-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(139,92,246,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => addPageNumbers(files[0])}
     />
   );
@@ -508,8 +466,8 @@ export function RepairPdf() {
       title="Repair PDF"
       icon={Wrench}
       actionText="Attempt Repair"
-      colorClass="bg-emerald-600/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(5,150,105,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => repairPdf(files[0])}
     />
   );
@@ -521,9 +479,13 @@ export function ReversePdf() {
       title="Reverse PDF"
       icon={ArrowDownUp}
       actionText="Reverse Pages"
-      colorClass="bg-fuchsia-500/20"
-      colorShadowClass="shadow-[0_0_30px_-5px_rgba(217,70,239,0.4)]"
+      colorClass="bg-amber-500/20"
+      colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]"
       onProcess={(files) => reversePdf(files[0])}
     />
   );
 }
+
+export function PngToPdf() { return <GenericToolShell title="PNG to PDF" icon={FileImage} actionText="Create PDF" colorClass="bg-amber-500/20" colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]" accept={{'image/png': ['.png']}} multiple={true} onProcess={(files) => pngToPdf(files[0])} />; }
+export function TextToPdf() { return <GenericToolShell title="Text to PDF" icon={Type} actionText="Convert to PDF" colorClass="bg-amber-500/20" colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]" accept={{'text/plain': ['.txt']}} onProcess={(files) => textToPdf(files[0])} />; }
+export function CsvToPdf() { return <GenericToolShell title="CSV to PDF" icon={FileText} actionText="Convert to PDF" colorClass="bg-amber-500/20" colorShadowClass="shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]" accept={{'text/csv': ['.csv']}} onProcess={(files) => csvToPdf(files[0])} />; }

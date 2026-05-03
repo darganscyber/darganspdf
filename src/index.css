@@ -6,17 +6,17 @@
   --font-heading: "Syne", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-bg-primary: #05000a;
-  --color-bg-secondary: #0a0112;
-  --color-bg-card: rgba(160, 32, 240, 0.04);
-  --color-border: rgba(160, 32, 240, 0.15);
-  --color-border-hover: rgba(160, 32, 240, 0.3);
-  --color-text-primary: #f8f0fc;
-  --color-text-muted: #9c89b8;
-  --color-accent-blue: #7b2cbf;
-  --color-accent-purple: #9d4edd;
-  --color-accent-teal: #c77dff;
-  --color-glow-blue: rgba(157, 78, 221, 0.2);
+  --color-bg-primary: #050505;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-card: rgba(245, 158, 11, 0.05); /* very light gold */
+  --color-border: rgba(245, 158, 11, 0.2);
+  --color-border-hover: rgba(245, 158, 11, 0.4); /* gold hover */
+  --color-text-primary: #ffffff;
+  --color-text-muted: #d4d4d8; 
+  --color-accent-blue: #f59e0b; /* gold */
+  --color-accent-purple: #fbbf24; /* gold */
+  --color-accent-teal: #fcd34d; /* gold */
+  --color-glow-blue: rgba(245, 158, 11, 0.2); /* gold glow */
 }
 
 @layer base {
@@ -42,5 +42,10 @@
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-accent-purple);
   }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-150%) skewX(12deg); }
+  100% { transform: translateX(250%) skewX(12deg); }
 }
 

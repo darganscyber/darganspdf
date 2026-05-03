@@ -44,7 +44,7 @@ export function MagneticButton({ children, className, active, ...props }: Magnet
       style={{ x: mouseX, y: mouseY }}
       className={cn(
         "relative rounded-xl px-8 py-4 font-medium transition-colors",
-        active ? "bg-accent-blue/10 text-accent-blue" : "bg-bg-card hover:bg-border border border-border text-text-primary",
+        active ? "bg-amber-400/10 text-amber-400" : "bg-bg-card hover:bg-border border border-border text-text-primary",
         className
       )}
       {...props}

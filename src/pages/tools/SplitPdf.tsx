@@ -6,11 +6,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { File, Loader2, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import * as pdfjsLib from 'pdfjs-dist';
+// @ts-ignore
+
 import { useUsage } from '@/components/UsageProvider';
 
 // Configure pdfjs worker to render thumbnails.
-// We use a public CDN worker for this demo.
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
 export function SplitPdf() {
   const { incrementUsage } = useUsage();
@@ -109,9 +110,9 @@ export function SplitPdf() {
             key="success"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-xl p-12 bg-bg-card rounded-3xl border border-accent-purple/30 text-center flex flex-col items-center shadow-[0_0_40px_-15px_rgba(124,92,252,0.3)]"
+            className="w-full max-w-xl p-12 bg-bg-card rounded-3xl border border-amber-500/30 text-center flex flex-col items-center shadow-[0_0_40px_-15px_rgba(245,158,11,0.4)]"
           >
-            <div className="w-20 h-20 bg-accent-purple/20 rounded-full flex items-center justify-center mb-6">
+            <div className="w-20 h-20 bg-amber-500/20 rounded-full flex items-center justify-center mb-6">
               <CheckCircle2 className="w-10 h-10 text-accent-purple" />
             </div>
             <h2 className="text-3xl font-heading font-bold mb-4">Pages Extracted!</h2>
@@ -151,7 +152,7 @@ export function SplitPdf() {
                   onClick={() => togglePage(idx)}
                   className={cn(
                     "relative aspect-[1/1.4] rounded-xl cursor-pointer border-2 transition-all p-2 flex flex-col items-center justify-center overflow-hidden group",
-                    selectedPages.has(idx) ? "border-accent-purple bg-accent-purple/10 shadow-[0_0_20px_-5px_rgba(124,92,252,0.4)]" : "border-border bg-bg-card hover:border-border-hover blur-0"
+                    selectedPages.has(idx) ? "border-amber-500 bg-amber-500/10 shadow-[0_0_20px_-5px_rgba(245,158,11,0.4)]" : "border-border bg-bg-card hover:border-border-hover blur-0"
                   )}
                 >
                   <File className={cn("w-12 h-12 mb-2 transition-colors", selectedPages.has(idx) ? "text-accent-purple" : "text-text-muted")} />
@@ -159,7 +160,7 @@ export function SplitPdf() {
                   
                   <div className={cn(
                     "absolute top-2 right-2 w-5 h-5 rounded-full border flex items-center justify-center transition-colors",
-                    selectedPages.has(idx) ? "bg-accent-purple border-accent-purple text-white" : "border-border text-transparent"
+                    selectedPages.has(idx) ? "bg-amber-500 border-amber-500 text-white" : "border-border text-transparent"
                   )}>
                     <CheckCircle2 className="w-3 h-3" />
                   </div>
@@ -178,7 +179,7 @@ export function SplitPdf() {
                     disabled={selectedPages.size === 0 || isProcessing}
                     className={cn(
                       "flex items-center gap-2",
-                      selectedPages.size > 0 ? "!bg-accent-purple text-white hover:!bg-accent-purple/90 border-transparent shadow-[0_0_30px_-5px_rgba(124,92,252,0.4)]" : "opacity-50 cursor-not-allowed"
+                      selectedPages.size > 0 ? "!bg-amber-500 text-white hover:!bg-amber-500/90 border-transparent shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)]" : "opacity-50 cursor-not-allowed"
                     )}
                   >
                     {isProcessing ? (

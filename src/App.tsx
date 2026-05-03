@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import ToolPage from './pages/ToolPage';
 import { UsageProvider } from './components/UsageProvider';
+import { CookieConsent } from './components/CookieConsent';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="tools/:id" element={<ToolPage />} />
           </Route>
         </Routes>
+        <CookieConsent />
       </UsageProvider>
     </BrowserRouter>
   );

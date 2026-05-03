@@ -1,5 +1,9 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import JSZip from 'jszip';
+// @ts-ignore
+
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
 export async function pdfToJpg(file: File): Promise<Blob> {
   const arrayBuffer = await file.arrayBuffer();
@@ -29,5 +33,6 @@ export async function pdfToJpg(file: File): Promise<Blob> {
     }
   }
 
-  return await zip.generateAsync({ type: 'blob' });
+  const content = await zip.generateAsync({ type: 'blob' });
+  return new Blob([content], { type: 'application/zip' });
 }

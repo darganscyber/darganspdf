@@ -41,17 +41,6 @@ export const UsageProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const incrementUsage = () => {
-    if (operationsUsed >= maxOperations) {
-      setShowUpgradeModal(true);
-      return false; // Limit reached
-    }
-    
-    const newCount = operationsUsed + 1;
-    setOperationsUsed(newCount);
-    
-    const today = new Date().toISOString().split('T')[0];
-    localStorage.setItem('darganspdf_usage', JSON.stringify({ date: today, count: newCount }));
-    
     return true; // Successfully incremented
   };
 
@@ -59,8 +48,8 @@ export const UsageProvider = ({ children }: { children: React.ReactNode }) => {
     <UsageContext.Provider value={{
       operationsUsed,
       incrementUsage,
-      limitReached: operationsUsed >= maxOperations,
-      maxOperations
+      limitReached: false,
+      maxOperations: Infinity
     }}>
       {children}
       <AnimatePresence>
@@ -78,7 +67,7 @@ export const UsageProvider = ({ children }: { children: React.ReactNode }) => {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-bg-secondary border border-accent-blue/30 rounded-3xl p-8 overflow-hidden shadow-2xl"
+              className="relative w-full max-w-md bg-bg-secondary border border-amber-400/30 rounded-3xl p-8 overflow-hidden shadow-2xl"
             >
               <div className="absolute top-0 right-0 p-4">
                 <button onClick={() => setShowUpgradeModal(false)} className="text-text-muted hover:text-white transition-colors">
@@ -89,7 +78,7 @@ export const UsageProvider = ({ children }: { children: React.ReactNode }) => {
               <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-[radial-gradient(ellipse_at_center,rgba(79,142,247,0.15),transparent_50%)] pointer-events-none" />
 
               <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-accent-blue/20 rounded-2xl flex items-center justify-center mb-6 border border-accent-blue/30 shadow-[0_0_30px_-5px_rgba(79,142,247,0.5)] text-accent-blue">
+                <div className="w-16 h-16 bg-amber-400/20 rounded-2xl flex items-center justify-center mb-6 border border-amber-400/30 shadow-[0_0_30px_-5px_rgba(79,142,247,0.5)] text-amber-400">
                    <Sparkles className="w-8 h-8" />
                 </div>
                 

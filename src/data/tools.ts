@@ -3,17 +3,20 @@ import {
   Image as ImageIcon, Replace, Lock, Unlock, 
   RotateCw, Droplet, PenTool, Edit3, Type,
   FileMinus, FileOutput, Layers, Hash,
-  FileImage, Wrench, ArrowDownUp
+  FileImage, Wrench, ArrowDownUp,
+  FileBox, FileCode, Book, Table, Presentation, FileSpreadsheet, ImagePlus
 } from 'lucide-react';
 
 export const ALL_TOOLS = [
+  // Core PDF Tools
   {
     id: 'merge-pdf',
     name: 'Merge PDF',
     description: 'Combine multiple PDFs into a single, unified document.',
     icon: Combine,
     isPro: false,
-    color: 'from-blue-400 to-accent-blue',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
   },
   {
     id: 'split-pdf',
@@ -21,7 +24,8 @@ export const ALL_TOOLS = [
     description: 'Extract pages or split a large PDF into smaller ones.',
     icon: SplitSquareHorizontal,
     isPro: false,
-    color: 'from-accent-purple to-purple-600',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
   },
   {
     id: 'compress-pdf',
@@ -29,23 +33,16 @@ export const ALL_TOOLS = [
     description: 'Reduce file size while keeping visual quality intact.',
     icon: FileDown,
     isPro: false,
-    color: 'from-accent-teal to-teal-600',
-  },
-  {
-    id: 'pdf-to-word',
-    name: 'PDF to Word',
-    description: 'Convert PDFs into editable Word documents quickly.',
-    icon: FileText,
-    isPro: false,
-    color: 'from-blue-300 to-blue-500',
-  },
-  {
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
+  },  {
     id: 'pdf-to-jpg',
     name: 'PDF to JPG',
     description: 'Extract every page of your PDF as high-quality images.',
     icon: ImageIcon,
     isPro: false,
-    color: 'from-yellow-400 to-orange-500',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
   },
   {
     id: 'jpg-to-pdf',
@@ -53,95 +50,8 @@ export const ALL_TOOLS = [
     description: 'Convert images to a combined PDF document seamlessly.',
     icon: Replace,
     isPro: false,
-    color: 'from-orange-400 to-red-500',
-  },
-  {
-    id: 'protect-pdf',
-    name: 'Protect PDF',
-    description: 'Add an AES-256 password to secure your documents.',
-    icon: Lock,
-    isPro: false,
-    color: 'from-green-400 to-emerald-600',
-  },
-  {
-    id: 'unlock-pdf',
-    name: 'Unlock PDF',
-    description: 'Remove password protection from encrypted PDFs.',
-    icon: Unlock,
-    isPro: false,
-    color: 'from-emerald-400 to-cyan-500',
-  },
-  {
-    id: 'rotate-pdf',
-    name: 'Rotate PDF',
-    description: 'Rotate specific pages or all pages effortlessly.',
-    icon: RotateCw,
-    isPro: false,
-    color: 'from-cyan-400 to-blue-500',
-  },
-  {
-    id: 'watermark-pdf',
-    name: 'Add Watermark',
-    description: 'Stamp your PDF with text or an image watermark.',
-    icon: Droplet,
-    isPro: false,
-    color: 'from-indigo-400 to-accent-purple',
-  },
-  {
-    id: 'sign-pdf',
-    name: 'Sign PDF',
-    description: 'Add your electronic signature to any PDF document.',
-    icon: PenTool,
-    isPro: false,
-    color: 'from-rose-400 to-pink-500',
-  },
-  {
-    id: 'edit-metadata',
-    name: 'Metadata Editor',
-    description: 'Modify title, author, keywords, and other file metadata.',
-    icon: Edit3,
-    isPro: false,
-    color: 'from-gray-400 to-gray-600',
-  },
-  {
-    id: 'extract-text',
-    name: 'Extract Text',
-    description: 'Instantly extract raw text from your PDF.',
-    icon: Type,
-    isPro: false,
-    color: 'from-blue-500 to-indigo-600',
-  },
-  {
-    id: 'remove-pages',
-    name: 'Remove Pages',
-    description: 'Delete unwanted pages from your document.',
-    icon: FileMinus,
-    isPro: false,
-    color: 'from-red-400 to-red-600',
-  },
-  {
-    id: 'extract-pages',
-    name: 'Extract Pages',
-    description: 'Keep only the pages you want.',
-    icon: FileOutput,
-    isPro: false,
-    color: 'from-sky-400 to-sky-600',
-  },
-  {
-    id: 'flatten-pdf',
-    name: 'Flatten PDF',
-    description: 'Make forms and annotations permanent and uneditable.',
-    icon: Layers,
-    isPro: false,
-    color: 'from-stone-400 to-stone-600',
-  },
-  {
-    id: 'add-page-numbers',
-    name: 'Page Numbers',
-    description: 'Insert page numbers into your PDF automatically.',
-    icon: Hash,
-    isPro: false,
-    color: 'from-violet-400 to-violet-600',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
   },
   {
     id: 'pdf-to-png',
@@ -149,7 +59,118 @@ export const ALL_TOOLS = [
     description: 'Convert PDF pages into transparent PNG images.',
     icon: FileImage,
     isPro: false,
-    color: 'from-amber-400 to-yellow-600',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
+  },
+  {
+    id: 'png-to-pdf',
+    name: 'PNG to PDF',
+    description: 'Convert PNG images into a PDF document.',
+    icon: ImagePlus,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Core PDF Tools'
+  },
+  // Conversion Tools
+  {
+    id: 'pdf-to-text',
+    name: 'PDF to Text',
+    description: 'Instantly extract raw text from your PDF.',
+    icon: Type,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Conversion Tools'
+  },
+  {
+    id: 'text-to-pdf',
+    name: 'Text to PDF',
+    description: 'Convert raw text files into PDF documents.',
+    icon: Type,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Conversion Tools'
+  },  {
+    id: 'csv-to-pdf',
+    name: 'CSV to PDF',
+    description: 'Convert CSV data files into PDF format.',
+    icon: Table,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Conversion Tools'
+  },
+
+  // Security & Manage Tools
+  {
+    id: 'rotate-pdf',
+    name: 'Rotate PDF',
+    description: 'Rotate specific pages or all pages effortlessly.',
+    icon: RotateCw,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'watermark-pdf',
+    name: 'Add Watermark',
+    description: 'Stamp your PDF with text or an image watermark.',
+    icon: Droplet,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'sign-pdf',
+    name: 'Sign PDF',
+    description: 'Add your electronic signature to any PDF document.',
+    icon: PenTool,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'edit-metadata',
+    name: 'Metadata Editor',
+    description: 'Modify title, author, keywords, and other file metadata.',
+    icon: Edit3,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'remove-pages',
+    name: 'Remove Pages',
+    description: 'Delete unwanted pages from your document.',
+    icon: FileMinus,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'extract-pages',
+    name: 'Extract Pages',
+    description: 'Keep only the pages you want.',
+    icon: FileOutput,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'flatten-pdf',
+    name: 'Flatten PDF',
+    description: 'Make forms and annotations permanent and uneditable.',
+    icon: Layers,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
+  },
+  {
+    id: 'add-page-numbers',
+    name: 'Page Numbers',
+    description: 'Insert page numbers into your PDF automatically.',
+    icon: Hash,
+    isPro: false,
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
   },
   {
     id: 'repair-pdf',
@@ -157,7 +178,8 @@ export const ALL_TOOLS = [
     description: 'Attempt to fix corrupted or broken PDF structures.',
     icon: Wrench,
     isPro: false,
-    color: 'from-emerald-500 to-green-700',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
   },
   {
     id: 'reverse-pdf',
@@ -165,6 +187,7 @@ export const ALL_TOOLS = [
     description: 'Reverse the order of pages in your document.',
     icon: ArrowDownUp,
     isPro: false,
-    color: 'from-fuchsia-400 to-fuchsia-600',
+    color: 'from-amber-400 to-amber-600',
+    category: 'Manage Tools'
   }
 ];
